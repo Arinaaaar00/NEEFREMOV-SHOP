@@ -1,34 +1,20 @@
+import React, { useState } from "react";
+import Aside from "../components/Aside";
 import ProductCard from "../components/ProductCard";
+import { products } from "../data/products";
 
-function MainPage() {
+export default function MainPage({ onAddToCart }) {
+  const [filter, setFilter] = useState("Все");
+  const filtered = filter === "Все" ? products : products.filter(p => p.category === filter);
 
-    const products = [
-      {
-        id: 1,
-        name: 'Ноутбук',
-        price: 500,
-        description: 'Ноутбук очень классный ваще отличный ноут !',
-        img: ''
-      },
-      {
-        id: 2,
-        name: 'Планшет',
-        price: 200,
-        description: 'Планшет нереально классный ваще отличный планшет !',
-        img: ''
-      }
-    ]
-
-    return(
-    <div className="App">
-      <h2>Товары</h2>
-      {products.map((product) => (
-        <ProductCard name={product.name} desc={product.description} price={product.price} img={product.img}>
-
-        </ProductCard>
-      ))}
+  return (
+    <div className="main">
+      <Aside onFilter={setFilter} />
+      <div className="products">
+        {filtered.map(p => (
+          <ProductCard key={p.id} product={p} onAdd={onAddToCart} />
+        ))}
+      </div>
     </div>
-    );
+  );
 }
-
-export default MainPage;

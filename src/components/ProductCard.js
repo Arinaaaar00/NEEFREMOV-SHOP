@@ -1,15 +1,13 @@
-function ProductCard({name, desc, price, img}) {
-    return(
-        <div className="card">
-            <div className="card-img">
-                <img src=""></img>
-            </div>
-            <p className="card-name">{name}</p>
-            <p className="card-desc">{desc}</p>
-            <p className="card-price">{price}</p>
-            <button>Добавить</button>
-        </div>
-    );
-}
+import React from "react";
 
-export default ProductCard;
+export default function ProductCard({ product, onAdd }) {
+  return (
+    <div className="card">
+      <img src={product.image} alt={product.name} />
+      <h3>{product.name}</h3>
+      <p>{product.description}</p>
+      <p><strong>{product.price}$</strong></p>
+      <button onClick={() => onAdd(product)}>Добавить в корзину</button>
+    </div>
+  );
+}
